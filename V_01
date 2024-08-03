@@ -1,0 +1,228 @@
+{-# LANGUAGE OverloadedStrings #-}
+module Example where
+
+import Language.Marlowe.Extended.V1
+
+main :: IO ()
+main = printJSON example
+
+
+{- Define a contract, Close is the simplest contract which just ends the contract straight away
+-}
+
+example :: Contract
+example = When
+    [Case
+        (Deposit
+            (Role "role")
+            (Role "role")
+            (Token "" "")
+            (ConstantParam "Phi")
+        )
+        (When
+            [Case
+                (Choice
+                    (ChoiceId
+                        "Giam sat chon"
+                        (Role "Giam sat")
+                    )
+                    [Bound 1 1]
+                )
+                (When
+                    [Case
+                        (Choice
+                            (ChoiceId
+                                "Con chọn"
+                                (Role "Con")
+                            )
+                            [Bound 1 1]
+                        )
+                        (Pay
+                            (Role "role")
+                            (Party (Role "Giam sat"))
+                            (Token "" "")
+                            (DivValue
+                                (MulValue
+                                    (ConstantParam "Phi")
+                                    (Constant 10)
+                                )
+                                (Constant 100)
+                            )
+                            (Pay
+                                (Role "role")
+                                (Party (Role "Cham soc"))
+                                (Token "" "")
+                                (DivValue
+                                    (MulValue
+                                        (ConstantParam "Phi")
+                                        (Constant 85)
+                                    )
+                                    (Constant 100)
+                                )
+                                (Pay
+                                    (Role "role")
+                                    (Party (Role "Con"))
+                                    (Token "" "")
+                                    (DivValue
+                                        (MulValue
+                                            (ConstantParam "Phi")
+                                            (Constant 5)
+                                        )
+                                        (Constant 100)
+                                    )
+                                    Close 
+                                )
+                            )
+                        )]
+                    (TimeParam "con")
+                    (Pay
+                        (Role "role")
+                        (Party (Role "Cham soc"))
+                        (Token "" "")
+                        (DivValue
+                            (MulValue
+                                (ConstantParam "Phi")
+                                (Constant 50)
+                            )
+                            (Constant 100)
+                        )
+                        (Pay
+                            (Role "role")
+                            (Party (Role "Con"))
+                            (Token "" "")
+                            (DivValue
+                                (MulValue
+                                    (ConstantParam "Phi")
+                                    (Constant 5)
+                                )
+                                (Constant 100)
+                            )
+                            Close 
+                        )
+                    )
+                )]
+            (TimeParam "Giam sat ")
+            (When
+                [Case
+                    (Choice
+                        (ChoiceId
+                            "Cham soc chon"
+                            (Role "Cham soc")
+                        )
+                        [Bound 1 1]
+                    )
+                    (When
+                        [Case
+                            (Choice
+                                (ChoiceId
+                                    "Con chon"
+                                    (Role "Con")
+                                )
+                                [Bound 1 1]
+                            )
+                            (Pay
+                                (Role "role")
+                                (Party (Role "Cham soc"))
+                                (Token "" "")
+                                (DivValue
+                                    (MulValue
+                                        (ConstantParam "Phi")
+                                        (Constant 85)
+                                    )
+                                    (Constant 100)
+                                )
+                                (Pay
+                                    (Role "role")
+                                    (Party (Role "Con"))
+                                    (Token "" "")
+                                    (DivValue
+                                        (MulValue
+                                            (ConstantParam "Phi")
+                                            (Constant 5)
+                                        )
+                                        (Constant 100)
+                                    )
+                                    Close 
+                                )
+                            )]
+                        (TimeParam "con")
+                        (Pay
+                            (Role "role")
+                            (Party (Role "Giam sat"))
+                            (Token "" "")
+                            (DivValue
+                                (MulValue
+                                    (ConstantParam "Phi")
+                                    (Constant 5)
+                                )
+                                (Constant 100)
+                            )
+                            (Pay
+                                (Role "role")
+                                (Party (Role "Cham soc"))
+                                (Token "" "")
+                                (DivValue
+                                    (MulValue
+                                        (ConstantParam "Phi")
+                                        (Constant 30)
+                                    )
+                                    (Constant 100)
+                                )
+                                (Pay
+                                    (Role "role")
+                                    (Party (Role "Con"))
+                                    (Token "" "")
+                                    (DivValue
+                                        (MulValue
+                                            (ConstantParam "Phi")
+                                            (Constant 5)
+                                        )
+                                        (Constant 100)
+                                    )
+                                    Close 
+                                )
+                            )
+                        )
+                    )]
+                (TimeParam "Cham soc")
+                (Pay
+                    (Role "role")
+                    (Party (Role "Giam sat"))
+                    (Token "" "")
+                    (DivValue
+                        (MulValue
+                            (ConstantParam "Phi")
+                            (Constant 5)
+                        )
+                        (Constant 100)
+                    )
+                    (Pay
+                        (Role "role")
+                        (Party (Role "Cham soc"))
+                        (Token "" "")
+                        (DivValue
+                            (MulValue
+                                (ConstantParam "Phi")
+                                (Constant 50)
+                            )
+                            (Constant 100)
+                        )
+                        (Pay
+                            (Role "role")
+                            (Party (Role "Con"))
+                            (Token "" "")
+                            (DivValue
+                                (MulValue
+                                    (ConstantParam "Phi")
+                                    (Constant 6)
+                                )
+                                (Constant 100)
+                            )
+                            Close 
+                        )
+                    )
+                )
+            )
+        )]
+    (TimeParam "Nop phi")
+    Close 
